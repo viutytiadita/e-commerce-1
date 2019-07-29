@@ -6,6 +6,7 @@ module.exports = (req, res, next) => {
     try {
         const decode = verify(req.headers.token)
         req.decoded = decode
+        
     }
     catch (err) {
         next(err)

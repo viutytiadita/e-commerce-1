@@ -1,6 +1,5 @@
 # e-commerce
 
-
 {
   "name": "basic shirt",
   "stock": 5,

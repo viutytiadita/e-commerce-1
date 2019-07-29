@@ -10,9 +10,9 @@ const expect = chai.expect;
 let tokenUSer = ""
 let idProduct = ""
 
-after(function (done) {
-    deleteAllProduct('product', done)
-})
+// after(function (done) {
+//     deleteAllProduct('product', done)
+// })
 
 
 

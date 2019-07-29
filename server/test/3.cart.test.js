@@ -12,9 +12,9 @@ let idUser = ""
 let idProduct = ""
 let idCart = ""
 
-after(function (done) {
-    deleteAllCart('cart', done)
-})
+// after(function (done) {
+//     deleteAllCart('cart', done)
+// })
 
 
 describe('Test Cart', function () {
@@ -22,7 +22,7 @@ describe('Test Cart', function () {
         chai
             .request(app)
             .post("/users/login")
-            .send({ email: 'tviuty@yahoo.com', password: '12345' })
+            .send({ email: 'tv@yahoo.com', password: '12345' })
             .then(function (res) {
                 idUser = res.body._id
                 tokenUSer = res.body.token

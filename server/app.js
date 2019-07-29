@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3002
 const mongoose = require('mongoose')
 const cors = require('cors')
 const router = require('./routes')
@@ -12,7 +12,7 @@ mongoose.connect(process.env.MONGODB_URL, {useNewUrlParser: true,useFindAndModif
     console.log("we're connected")
 })
 .catch(err => {
-    console.log("we failed to connect")
+    console.log("we failed to connect", err)
 })
 
 app.use(express.urlencoded({ extended:false }))

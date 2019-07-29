@@ -49,13 +49,6 @@ class CartController {
         .catch(next)
     }
 
-    static deleteAll(req,res,next){
-        Cart.deleteMany({_id: req.params.cartid})
-        .then((data)=> {
-            res.status(200).json(data)
-        })
-        .catch(next)
-    }
 }
 
 module.exports = CartController

@@ -46,7 +46,14 @@ const userSchema = new Schema({
     }
 },{timestamps : true})
 
-userSchema.pre('save',function(next){
+userSchema.pre('save',function(next){    
+    this.password = bcrypt.hashSync(this.password,salt)
+    next()
+})
+userSchema.pre('findOneAndUpdate',function(next){
+    console.log('masuk hooks');
+    console.log(this.password);
+    
     this.password = bcrypt.hashSync(this.password,salt)
     next()
 })

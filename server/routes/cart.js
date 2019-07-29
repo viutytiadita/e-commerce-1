@@ -9,8 +9,7 @@ cartRouter.get('/',CartController.fetch)
 cartRouter.get('/:productid',CartController.fetchOne)
 cartRouter.post('/',CartController.create)
 cartRouter.use('/:cartid',authorizationCart)
-cartRouter.delete('/:cartid/one',CartController.delete)
-cartRouter.delete('/:cartid/all',CartController.deleteAll)
+cartRouter.delete('/:cartid',CartController.delete)
 cartRouter.patch('/:cartid',CartController.updateCount)
 
 module.exports = cartRouter

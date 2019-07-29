@@ -18,6 +18,19 @@ class UserController {
             .catch(next)
     }
 
+    static changePassword(req, res, next){
+        User.findByIdAndUpdate({_id: req.decoded.id},{password: req.body.password},{
+            runValidators: true, new: true
+        })
+        .then((data)=>{
+            console.log('ini datanya');
+            
+            console.log(data);
+            res.status(200).json(data)
+        })
+        .catch(next)
+    }
+
     static login(req, res, next) {
         console.log(req.body);
 

@@ -68,7 +68,7 @@ class ProductController {
         console.log(req.body);
 
         Product.updateOne({ _id: req.params.productid }, {
-            stock: req.body.stock - 1
+            stock: req.body.stock
         })
             .then((data) => {
                 res.status(200).json(data)
