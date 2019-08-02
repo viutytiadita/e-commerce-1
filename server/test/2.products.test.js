@@ -10,23 +10,22 @@ const expect = chai.expect;
 let tokenUSer = ""
 let idProduct = ""
 
-// after(function (done) {
-//     deleteAllProduct('product', done)
-// })
-
-
+after(function (done) {
+    deleteAllProduct('product', done)
+})
 
 console.log(tokenUSer);
 console.log('ini token');
 
 
 describe('CRUD products', function () {
+    this.timeout(10000)
     before(function (done) {
         console.log("masuk before")
         chai
             .request(app)
             .post("/users/login")
-            .send({ email: 'tviuty@yahoo.com', password: '12345' })
+            .send({ email: 'andri@yahoo.com', password: '12345' })
             .then(function (res) {
 
                 tokenUSer = res.body.token
@@ -61,8 +60,8 @@ describe('CRUD products', function () {
                 .set('token', tokenUSer)
                 .attach("image", readFileSync('./test/pic-testing/test.png'), "test.png")
                 .field("name", "basic shirt")
-                .field("stock", 5)
-                .field("price", 80000)
+                .field("stock", "5")
+                .field("price", "80000")
                 .then(function (res) {
                     console.log(res.body)
                     expect(res).to.have.status(201)
@@ -125,40 +124,15 @@ describe('CRUD products', function () {
                 })
         })
     })
-    describe('Delete / products', function () {
-        it('should be an object with 200 status code', function (done) {
-            chai.request(app).delete(`/products/${idProduct}`)
-                .set('token', tokenUSer)
-                .then(function (res) {
-                    expect(res).to.have.status(200)
-                    expect(res.body).to.be.an('object')
-                    done()
-                })
-                .catch(function (err) {
-                    console.log(err);
-                })
-        })
-        it('should be an object with 401 status code(without token)', function (done) {
-            chai.request(app).delete(`/products/${idProduct}`)
-                .then(function (res) {
-                    expect(res).to.have.status(401)
-                    expect(res.body).to.be.an('object')
-                    expect(res.body).to.have.property('message')
-                    done()
-                })
-                .catch(function (err) {
-                    console.log(err);
-                })
-        })
-    })
+    
     describe('Edit / products', function () {
         it('should be upload file with 200 status code', function (done) {
             chai.request(app).put(`/products/${idProduct}`)
                 .set('token', tokenUSer)
                 .attach("image", readFileSync('./test/pic-testing/test.png'), "test.png")
                 .field("name", "basic shirt")
-                .field("stock", 5)
-                .field("price", 80000)
+                .field("stock", "5")
+                .field("price", "80000")
                 .then(function (res) {
                     expect(res).to.have.status(200)
                     expect(res.body).to.be.an('object')
@@ -207,6 +181,32 @@ describe('CRUD products', function () {
                 .send(data)
                 .then(function (res) {
                     expect(res).to.have.status(400)
+                    expect(res.body).to.be.an('object')
+                    expect(res.body).to.have.property('message')
+                    done()
+                })
+                .catch(function (err) {
+                    console.log(err);
+                })
+        })
+    })
+    describe('Delete / products', function () {
+        it('should be an object with 200 status code', function (done) {
+            chai.request(app).delete(`/products/${idProduct}`)
+                .set('token', tokenUSer)
+                .then(function (res) {
+                    expect(res).to.have.status(200)
+                    expect(res.body).to.be.an('object')
+                    done()
+                })
+                .catch(function (err) {
+                    console.log(err);
+                })
+        })
+        it('should be an object with 401 status code(without token)', function (done) {
+            chai.request(app).delete(`/products/${idProduct}`)
+                .then(function (res) {
+                    expect(res).to.have.status(401)
                     expect(res.body).to.be.an('object')
                     expect(res.body).to.have.property('message')
                     done()

@@ -11,9 +11,9 @@ let tokenUSer = ""
 let idUser = ""
 let carts = ""
 
-// after(function (done) {
-//     deleteAllCart('transaction', done)
-// })
+after(function (done) {
+    deleteAllCart('transaction', done)
+})
 
 
 describe('Test Transaction', function () {
@@ -22,7 +22,7 @@ describe('Test Transaction', function () {
             chai
                 .request(app)
                 .post("/users/login")
-                .send({ email: 'tviuty@yahoo.com', password: '12345' })
+                .send({ email: 'andri@yahoo.com', password: '12345' })
                 .then(function (res) {
                     idUser = res.body._id
                     tokenUSer = res.body.token
@@ -32,6 +32,7 @@ describe('Test Transaction', function () {
                     console.log(err);
                 })
         })
+        
         it('should be an array with 200 status code(all)', function (done) {
             chai.request(app).get('/transactions/all')
                 .set('token', tokenUSer)
@@ -48,7 +49,7 @@ describe('Test Transaction', function () {
             chai
                 .request(app)
                 .post("/users/login")
-                .send({ email: 'tv@yahoo.com', password: '12345' })
+                .send({ email: 'tviuty@yahoo.com', password: '12345' })
                 .then(function (res) {
                     idUser = res.body._id
                     tokenUSer = res.body.token
@@ -58,6 +59,7 @@ describe('Test Transaction', function () {
                     console.log(err);
                 })
         })
+        
         it("should be an array with 200 status code(user's)", function (done) {
             chai.request(app).get('/transactions/user')
                 .set('token', tokenUSer)
@@ -89,7 +91,7 @@ describe('Test Transaction', function () {
         it('should be an object with 201 status code', function (done) {
             chai.request(app).post('/transactions')
                 .set('token', tokenUSer)
-                .send({ user_id: idUser, carts : carts, count: 1 })
+                .send({ user_id: idUser, carts : carts, total: 100000 })
                 .then(function (res) {
                     expect(res).to.have.status(201)
                     expect(res.body).to.be.an('object')

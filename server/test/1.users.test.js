@@ -7,13 +7,13 @@ const app = require('../app');
 chai.use(chaiHttp);
 const expect = chai.expect;
 
-// after(function(done){
-//     deleteAllUser('user',done)
-// })
+after(function(done){
+    deleteAllUser('user',done)
+})
 describe('Test users', function(){
     describe('post register', function(){
         it('should be an object with 201 status code',function(done){
-            const data = {email:'tv@yahoo.com', password: '12345', username: 'tviuty', role: 'customer'}
+            const data = {email:'aaa@yahoo.com', password: '12345', username: 'tviuuty', role: 'customer'}
             chai.request(app).post('/users/register')
             .send(data)
             .then(function(res){

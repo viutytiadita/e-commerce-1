@@ -12,9 +12,9 @@ let idUser = ""
 let idProduct = ""
 let idCart = ""
 
-// after(function (done) {
-//     deleteAllCart('cart', done)
-// })
+after(function (done) {
+    deleteAllCart('cart', done)
+})
 
 
 describe('Test Cart', function () {
@@ -22,7 +22,7 @@ describe('Test Cart', function () {
         chai
             .request(app)
             .post("/users/login")
-            .send({ email: 'tv@yahoo.com', password: '12345' })
+            .send({ email: 'tviuty@yahoo.com', password: '12345' })
             .then(function (res) {
                 idUser = res.body._id
                 tokenUSer = res.body.token
@@ -95,9 +95,9 @@ describe('Test Cart', function () {
                 })
         })
     })
-    describe('Delete /carts/ one', function () {
+    describe('Delete /carts/', function () {
         it('should be an object with 200 status code', function (done) {
-            chai.request(app).delete(`/carts/${idCart}/one`)
+            chai.request(app).delete(`/carts/${idCart}`)
                 .set('token', tokenUSer)
                 .then(function (res) {
                     expect(res).to.have.status(200)
@@ -109,7 +109,7 @@ describe('Test Cart', function () {
                 })
         })
         it('should be an object with 401 status code(without token)', function (done) {
-            chai.request(app).delete(`/carts/${idCart}/one`)
+            chai.request(app).delete(`/carts/${idCart}`)
                 .then(function (res) {
                     expect(res).to.have.status(401)
                     expect(res.body).to.be.an('object')
@@ -122,30 +122,4 @@ describe('Test Cart', function () {
         })
     })
 
-    describe('Delete /carts/ all', function () {
-        it('should be an object with 200 status code', function (done) {
-            chai.request(app).delete(`/carts/${idCart}/all`)
-                .set('token', tokenUSer)
-                .then(function (res) {
-                    expect(res).to.have.status(200)
-                    expect(res.body).to.be.an('object')
-                    done()
-                })
-                .catch(function (err) {
-                    console.log(err);
-                })
-        })
-        it('should be an object with 401 status code(without token)', function (done) {
-            chai.request(app).delete(`/carts/${idCart}/all`)
-                .then(function (res) {
-                    expect(res).to.have.status(401)
-                    expect(res.body).to.be.an('object')
-                    expect(res.body).to.have.property('message')
-                    done()
-                })
-                .catch(function (err) {
-                    console.log(err);
-                })
-        })
-    })
 })

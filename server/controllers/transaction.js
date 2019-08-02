@@ -19,12 +19,9 @@ class TransactionController {
         })
         .then((data) => {
             res.status(201).json(data)
-            console.log('ini array');
-            console.log(arr);
+
             return Transaction.findByIdAndUpdate({_id: data._id},{
-                // $push: {
                     products: arr
-                // }
             },{new: true})
         })
         .then((data)=>{
@@ -49,6 +46,8 @@ class TransactionController {
     static findUsers(req,res,next) {
         Transaction.find({user_id : req.decoded.id}).populate('products.id').sort({createdAt: -1})
             .then((data) => {
+                console.log(data);
+                
                 res.status(200).json(data)
             })
             .catch(next)

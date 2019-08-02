@@ -40,7 +40,12 @@ class ProductController {
     static edit(req, res, next) {
         const {name, stock, price} = req.body
         console.log(typeof req.body.stock);
-        
+        console.log(req.body.name)
+        console.log(req.body.stock)
+        console.log(req.body.price)
+        console.log(req.params.productid, "rubhiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+
+
         if (!req.file || !req.file.cloudStoragePublicUrl) {
             Product.findByIdAndUpdate({ _id: req.params.productid },
                 {name, stock, price},{ runValidators: true, new: true }
@@ -51,7 +56,8 @@ class ProductController {
                 })
                 .catch(next)
         }else{
-            Product.findByIdAndUpdate({ _id: req.params.productid }, 
+            //console.log(req.params.productid, "rubhiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+            Product.findByIdAndUpdate(req.params.productid , 
                 {name, stock, price, picture: req.file.cloudStoragePublicUrl }, { runValidators: true, new: true })
                 .then((data) => {
                     console.log('DATA update');

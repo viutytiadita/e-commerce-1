@@ -71,7 +71,7 @@ export default {
       if(localStorage.role){
         this.datauser.role = localStorage.role
       }else{
-        this.datauser.role = 'customer'
+        this.datauser.role = 'admin'
       }
 
       ax.post("users/register", {

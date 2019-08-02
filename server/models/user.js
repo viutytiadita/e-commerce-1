@@ -46,16 +46,26 @@ const userSchema = new Schema({
     }
 },{timestamps : true})
 
-userSchema.pre('save',function(next){    
+userSchema.pre('save',function(next){ 
     this.password = bcrypt.hashSync(this.password,salt)
     next()
 })
-userSchema.pre('findOneAndUpdate',function(next){
+userSchema.post('findOneAndUpdate',function(doc,next){
     console.log('masuk hooks');
-    console.log(this.password);
-    
-    this.password = bcrypt.hashSync(this.password,salt)
-    next()
+    console.log(doc.password);
+    doc.password = bcrypt.hashSync(doc.password,salt)
+    console.log(doc.password);
+    console.log(doc._id);
+    User.update({_id:doc._id},{password: doc.password})
+    .then(result=>{
+        console.log(result, "test update")
+        next()
+
+    }).catch(next)
+    //lalkukan encrypt passwod disini
+    //findByIdAndUpdate
+
+  
 })
 const User = mongoose.model('User',userSchema)
 

@@ -16,12 +16,11 @@
 
 <script>
 import productlist from '@/components/productlist.vue'
-import cartlist from '@/components/cartlist.vue'
 
 export default {
   name: 'home',
   components: {
-    productlist, cartlist
+    productlist
   }
 }
 </script>
